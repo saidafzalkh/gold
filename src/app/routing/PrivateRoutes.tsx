@@ -17,8 +17,13 @@ import ProfilePageWrapper from "../pages/Profile/ProfilePageWrapper.tsx";
 import ProgressPage from "../pages/ProgressPage.tsx";
 import UserManagementListPageWrapper from "../pages/UserManagement/UserManagementListPageWrapper.tsx";
 import UserManagementViewPageWrapper from "../pages/UserManagement/UserManagementViewPageWrapper.tsx";
+import useToken from "../hooks/useToken.ts";
 
 const PrivateRoutes = () => {
+  const { token } = useToken();
+
+  if (!token) return <Navigate to={"/auth"} replace />;
+
   return (
     <Routes>
       <Route element={<MasterLayout />}>

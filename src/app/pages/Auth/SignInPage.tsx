@@ -1,36 +1,56 @@
 import { useState } from "react";
 import * as Yup from "yup";
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { useAuth } from "../../modules/auth";
 import { toAbsoluteUrl } from "../../../_metronic/helpers";
+import axiosInstance from "../../api/axiosInstance";
+import useToken from "../../hooks/useToken";
 
 const loginSchema = Yup.object().shape({
   email: Yup.string()
-    .email("Wrong email format")
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Email is required"),
+    .email("Неправильный формат электронной почты")
+    .min(3, "Минимум 3 символа")
+    .max(50, "Максимум 50 символов")
+    .required("Требуется электронная почта"),
   password: Yup.string()
-    .min(3, "Minimum 3 symbols")
-    .max(50, "Maximum 50 symbols")
-    .required("Password is required"),
+    .min(3, "Минимум 3 символа")
+    .max(50, "Максимум 50 символов")
+    .required("Необходим пароль"),
 });
 
 const initialValues = {
-  email: "admin@demo.com",
-  password: "demo",
+  email: "",
+  password: "",
 };
 
 export function SignInPage() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
   const { saveAuth, setCurrentUser } = useAuth();
+  const { setToken } = useToken();
+  const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values, { setFieldError, setStatus, setSubmitting }) => {},
+    onSubmit: async (values, { setFieldError, setStatus, setSubmitting }) => {
+      setLoading(true);
+
+      try {
+        const res = await axiosInstance.post("/auth/login", values);
+        if (res.data?.success) {
+          setToken(res.data?.data.token);
+          navigate("/analytics");
+        } else {
+          setFieldError(res.data?.data.error, res.data?.data.message);
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      setLoading(false);
+    },
   });
 
   return (
@@ -84,7 +104,7 @@ export function SignInPage() {
             {/* begin::Form group */}
             <div className="fv-row mb-8">
               <input
-                placeholder="Телефон"
+                placeholder="Электронная почта"
                 {...formik.getFieldProps("email")}
                 className={clsx(
                   "form-control bg-transparent",
@@ -101,7 +121,7 @@ export function SignInPage() {
                 <div className="fv-plugins-message-container">
                   <div className="fv-help-block">
                     <span role="alert font-color-error">
-                      Требуется номер телефона
+                      {formik.errors.email}
                     </span>
                   </div>
                 </div>
@@ -131,7 +151,9 @@ export function SignInPage() {
               {formik.touched.password && formik.errors.password && (
                 <div className="fv-plugins-message-container">
                   <div className="fv-help-block">
-                    <span role="alert font-color-error">Требуется пароль</span>
+                    <span role="alert font-color-error">
+                      {formik.errors.password}
+                    </span>
                   </div>
                 </div>
               )}
