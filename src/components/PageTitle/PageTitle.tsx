@@ -1,5 +1,4 @@
 import { createPortal } from "react-dom";
-import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
 import { useNavigate } from "react-router-dom";
 
 interface PageTitleProps {
@@ -68,4 +67,4 @@ function PageTitleWithPortal({
   return container ? createPortal(children, container) : null;
 }
 
-export { PageTitleWithPortal, PageTitle };
+export { PageTitle, PageTitleWithPortal };

@@ -79,7 +79,7 @@ function AddExpenseModal(props: AddExpenseModal) {
           <input
             type="number"
             onChange={(e) => setFormField("sum", +e.target.value)}
-            value={formState.sum}
+            value={formState.sum.toString()}
             className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
             placeholder="Введите сумму"
           />

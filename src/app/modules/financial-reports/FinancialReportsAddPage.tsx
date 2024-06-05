@@ -1,99 +1,42 @@
 import classNames from "classnames";
 import { useFormik } from "formik";
-import { useEffect, useMemo, useState } from "react";
+import { useState } from "react";
 import ExpensesTable from "../../../components/ExpensesTable/ExpensesTable";
 import Accordion from "../../../components/UI/Accordion";
+import {
+  AddFinancialReportForm1Config,
+  AddFinancialReportForm2Config,
+  initialFormState,
+  reportSchema,
+} from "../../constants/form-config";
 import { ExpensesTableConfig } from "../../constants/tables";
+import { generateId } from "../../helpers/utils";
 import AddExpenseModal, {
   AddExpenseFormType,
 } from "./partials/AddExpenseModal";
-import { generateId } from "../../helpers/utils";
-import { initialFormState } from "../../constants/common";
-
-export const AddFinancialReportFormConfig = [
-  {
-    label: "Начало смены",
-    name: "field1",
-    required: true,
-    type: "number",
-  },
-  {
-    label: "Фиксированный расход",
-    name: "field2",
-    required: true,
-    type: "text",
-  },
-  { label: "Подкрепление", name: "field3", required: true, type: "text" },
-  { label: "Инкасация", name: "field4", required: true, type: "text" },
-  { label: "Залог", name: "field5", required: true, type: "text" },
-  { label: "Выкуп", name: "field6", required: true, type: "text" },
-  { label: "Продление", name: "field7", required: true, type: "text" },
-  { label: "Вывод из залогов", name: "field8", required: true, type: "text" },
-  { label: "Частичный выкуп", name: "field9", required: true, type: "text" },
-  { label: "Продажа товаров", name: "field10", required: true, type: "text" },
-  { label: "Доход за проценты", name: "field11", required: true, type: "text" },
-  { label: "Доход за товары", name: "field12", required: true, type: "text" },
-  { label: "Возврат товаров", name: "field13", required: true, type: "text" },
-  { label: "Товары бу", name: "field14", required: true, type: "text" },
-  {
-    label: "Залоговые билеты/товары",
-    name: "field15",
-    required: true,
-    type: "text",
-  },
-  {
-    label: "Залоговые билеты/готов к продаже",
-    name: "field16",
-    required: true,
-    type: "text",
-  },
-  {
-    label: "Заёмный капитал инвесторов",
-    name: "field17",
-    required: true,
-    type: "text",
-  },
-  {
-    label: "Заёмный капитал кредит",
-    name: "field18",
-    required: true,
-    type: "text",
-  },
-  {
-    label: "Собственный капитал на руках",
-    name: "field19",
-    required: true,
-    type: "number",
-  },
-  {
-    label: "Собственный капитал в товарах",
-    name: "field20",
-    required: true,
-    type: "number",
-  },
-];
+import axiosInstance from "../../api/axiosInstance";
 
 function FinancialReportsAddPage() {
   const [mode, setMode] = useState<"smart" | "express">("express");
+  const [loading, setLoading] = useState<boolean>(false);
   const [selectedExpense, setCurrentExpense] = useState<
     (AddExpenseFormType & { id: number }) | null
   >(null);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState<boolean>(false);
 
-  const form1 = useFormik({
+  const form = useFormik({
     initialValues: initialFormState,
-    onSubmit: (val) => console.log(val),
+    // validationSchema: reportSchema,
+    onSubmit: async (val) => {
+      setLoading(true);
+      try {
+        await axiosInstance.post("/reports", val);
+      } catch (error) {
+        console.error(error);
+      }
+      setLoading(false);
+    },
   });
-
-  const form2 = useFormik({
-    initialValues: initialFormState,
-    onSubmit: (val) => console.log(val),
-  });
-
-  let form = form1;
-  if (mode === "express") {
-    form = form2;
-  }
 
   const openExpenseModal = (expense?: AddExpenseFormType & { id: number }) => {
     setIsExpenseModalOpen(true);
@@ -116,25 +59,27 @@ function FinancialReportsAddPage() {
     if (id === null) {
       //add new
       (expense as any).id = generateId();
-      const tmp = [...form.values.expenses, expense];
-      form.setFieldValue("expenses", tmp);
+      const tmp = [...form.values[`${mode}_consumptions`], expense];
+      form.setFieldValue(`${mode}_consumptions`, tmp);
     } else {
       //save existing
       console.log("save existing");
-      const tmp = [...form.values.expenses];
+      const tmp = [...form.values[`${mode}_consumptions`]];
       const idx = tmp.findIndex((el) => (el as any).id === id);
       tmp[idx] = expense;
-      form.setFieldValue("expenses", tmp);
+      form.setFieldValue(`${mode}_consumptions`, tmp);
     }
 
     closeExpenseModal();
   };
 
   const handleRemoveExpense = (id: number) => {
-    const idx = form.values.expenses.findIndex((el) => (el as any).id === id);
-    const tmp = form.values.expenses.slice(idx, 1);
+    const idx = form.values[`${mode}_consumptions`].findIndex(
+      (el) => (el as any).id === id
+    );
+    const tmp = form.values[`${mode}_consumptions`].slice(idx, 1);
     console.log(id);
-    form.setFieldValue("expenses", tmp);
+    form.setFieldValue(`${mode}_consumptions`, tmp);
   };
 
   return (
@@ -178,8 +123,43 @@ function FinancialReportsAddPage() {
         style={{ maxWidth: 1160 }}
       >
         <div className="row row-cols-2">
-          {AddFinancialReportFormConfig.map((field) => (
-            <div className="col" key={field.label} style={{ marginBottom: 20 }}>
+          {AddFinancialReportForm1Config.map((field) => (
+            <div
+              className="col"
+              key={field.label}
+              style={{
+                marginBottom: 20,
+                ...(mode === "express" ? { display: "none" } : {}),
+              }}
+            >
+              <label
+                className="fw-semibold"
+                style={{ fontSize: 16, marginBottom: 10 }}
+              >
+                {field.label}
+              </label>
+              <input
+                onBlur={form.handleBlur}
+                name={field.name}
+                type={field.type}
+                required={field.required}
+                onChange={form.handleChange}
+                value={(form.values as any)[field.name]}
+                className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
+                placeholder=""
+              />
+            </div>
+          ))}
+
+          {AddFinancialReportForm2Config.map((field) => (
+            <div
+              className="col"
+              key={field.label}
+              style={{
+                marginBottom: 20,
+                ...(mode === "smart" ? { display: "none" } : {}),
+              }}
+            >
               <label
                 className="fw-semibold"
                 style={{ fontSize: 16, marginBottom: 10 }}
@@ -202,12 +182,13 @@ function FinancialReportsAddPage() {
         <ExpensesTable
           title="Расход за смену"
           columns={ExpensesTableConfig}
-          data={form.values.expenses}
+          data={form.values[`${mode}_consumptions`]}
           onRowClick={(idx, expense) => openExpenseModal(expense)}
           toolbar={
             <button
               onClick={() => openExpenseModal()}
               className="btn btn-sm btn-warning me-3"
+              type="button"
             >
               Добавить расход
             </button>
@@ -222,7 +203,9 @@ function FinancialReportsAddPage() {
           expense={selectedExpense}
         />
 
-        <button className="btn btn-warning me-3 mt-7">Отправить отчёт</button>
+        <button type="submit" className="btn btn-warning me-3 mt-7">
+          Отправить отчёт
+        </button>
 
         <div style={{ marginTop: 50 }}>
           <h3 className="">Как сдавать отчёт</h3>

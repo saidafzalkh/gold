@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { ExpenseTypeOptions } from "../../app/constants/common";
 
 interface ExpensesTableProps {
   title: string;
@@ -7,7 +7,7 @@ interface ExpensesTableProps {
   data: Record<string, any>[];
   className?: string;
   toolbar?: React.ReactElement;
-  onRowClick?: (idx: number, expense: any) => void
+  onRowClick?: (idx: number, expense: any) => void;
 }
 
 function ExpensesTable(props: ExpensesTableProps) {
@@ -47,13 +47,20 @@ function ExpensesTable(props: ExpensesTableProps) {
             {/* begin::Table body */}
             <tbody>
               {data.map((dataItem, idx) => (
-                <tr style={{ height: 55, cursor: "pointer" }} onClick={()=>props.onRowClick?.(idx, dataItem)}>
+                <tr
+                  style={{ height: 55, cursor: "pointer" }}
+                  onClick={() => props.onRowClick?.(idx, dataItem)}
+                >
                   {columns.map((column) => (
                     <td
                       className={column.className || ""}
                       style={{ fontSize: 14, fontWeight: 600 }}
                     >
-                      <span>{dataItem[column.key]}</span>
+                      <span>
+                        {column.key === "type"
+                          ? ExpenseTypeOptions.find(item => item.key === dataItem[column.key])?.label
+                          : dataItem[column.key]}
+                      </span>
                     </td>
                   ))}
                 </tr>
