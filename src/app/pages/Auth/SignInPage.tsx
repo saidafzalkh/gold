@@ -27,14 +27,13 @@ const initialValues = {
 
 export function SignInPage() {
   const [loading, setLoading] = useState<boolean>(false);
-  const { saveAuth, setCurrentUser } = useAuth();
   const { setToken } = useToken();
   const navigate = useNavigate();
 
   const formik = useFormik({
     initialValues,
     validationSchema: loginSchema,
-    onSubmit: async (values, { setFieldError, setStatus, setSubmitting }) => {
+    onSubmit: async (values, { setFieldError }) => {
       setLoading(true);
 
       try {

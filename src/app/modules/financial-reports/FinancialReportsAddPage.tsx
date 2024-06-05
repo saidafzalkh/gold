@@ -3,18 +3,17 @@ import { useFormik } from "formik";
 import { useState } from "react";
 import ExpensesTable from "../../../components/ExpensesTable/ExpensesTable";
 import Accordion from "../../../components/UI/Accordion";
+import axiosInstance from "../../api/axiosInstance";
 import {
   AddFinancialReportForm1Config,
   AddFinancialReportForm2Config,
   initialFormState,
-  reportSchema,
 } from "../../constants/form-config";
 import { ExpensesTableConfig } from "../../constants/tables";
 import { generateId } from "../../helpers/utils";
 import AddExpenseModal, {
   AddExpenseFormType,
 } from "./partials/AddExpenseModal";
-import axiosInstance from "../../api/axiosInstance";
 
 function FinancialReportsAddPage() {
   const [mode, setMode] = useState<"smart" | "express">("express");
@@ -26,7 +25,6 @@ function FinancialReportsAddPage() {
 
   const form = useFormik({
     initialValues: initialFormState,
-    // validationSchema: reportSchema,
     onSubmit: async (val) => {
       setLoading(true);
       try {
@@ -35,6 +33,7 @@ function FinancialReportsAddPage() {
         console.error(error);
       }
       setLoading(false);
+      form.resetForm()
     },
   });
 
@@ -204,7 +203,12 @@ function FinancialReportsAddPage() {
         />
 
         <button type="submit" className="btn btn-warning me-3 mt-7">
-          Отправить отчёт
+          {!loading && <span className="indicator-label">Отправить отчёт</span>}
+          {loading && (
+            <span className="indicator-progress" style={{ display: "block" }}>
+              <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+            </span>
+          )}
         </button>
 
         <div style={{ marginTop: 50 }}>
