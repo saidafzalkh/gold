@@ -1,14 +1,14 @@
 import ExpensesTable from "../../../components/ExpensesTable/ExpensesTable";
 import Accordion from "../../../components/UI/Accordion";
+import { AddFinancialReportForm1Config } from "../../constants/form-config";
 import { ExpensesTableConfig, ExpensesTableData } from "../../constants/tables";
-import { AddFinancialReportFormConfig } from "./FinancialReportsAddPage";
 
 function FinancialReportsViewPage() {
   return (
     <div style={{ maxWidth: 1160, margin: "0px auto" }}>
       <div className="container">
         <div className="row row-cols-2">
-          {AddFinancialReportFormConfig.map((field) => (
+          {AddFinancialReportForm1Config.map((field) => (
             <div className="d-flex flex-column mb-5">
               <span
                 className="fw-semibold"
