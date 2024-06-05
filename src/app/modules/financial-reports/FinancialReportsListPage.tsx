@@ -6,9 +6,14 @@ import {
   FinancialReportTableData,
 } from "../../constants/tables";
 import { CandleChart1Data } from "../../constants/chart";
+import { useGetReports } from "../../api/get-reports";
 
 function FinancialReportsListPage() {
   const navigate = useNavigate();
+  const { reports, isLoading } = useGetReports();
+
+  console.log(reports);
+
   return (
     <div style={{ maxWidth: 1160, margin: "0px auto" }}>
       <CandleChart
@@ -21,7 +26,7 @@ function FinancialReportsListPage() {
           </div>
         }
       />
-      <CandleChart
+      {/* <CandleChart
         data={CandleChart1Data}
         className="my-7"
         toolbar={
@@ -43,18 +48,20 @@ function FinancialReportsListPage() {
             <span>Суммы в тысячах в тенге</span>
           </div>
         }
-      />
+      /> */}
 
       {/* begin::Row */}
       <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
         {/* begin::Col */}
         <div className="col-12 mb-md-5 mb-xl-10">
-          <FinancialReportTable
-            title="Смарт ломбард"
-            columns={FinancialReportTableConfig}
-            data={FinancialReportTableData}
-            onRowClick={(id) => navigate(`/financial-reports/${id}`)}
-          />
+          {!isLoading && (
+            <FinancialReportTable
+              title="Смарт ломбард"
+              columns={FinancialReportTableConfig}
+              data={reports}
+              onRowClick={(id) => navigate(`/financial-reports/${id}`)}
+            />
+          )}
         </div>
         {/* end::Col */}
       </div>

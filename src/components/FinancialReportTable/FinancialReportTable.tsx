@@ -79,13 +79,13 @@ function FinancialReportTable(props: FinancialReportTableProps) {
                       className={column.className || ""}
                       style={{ fontSize: 14, fontWeight: 600 }}
                     >
-                      <span>{dataItem[column.key]}</span>
+                      <span>{dataItem[column.key] || '-'}</span>
                     </td>
                   ))}
                 </tr>
               ))}
             </tbody>
-            <tfoot
+            {/* <tfoot
               className="table-default"
               style={{ borderTop: "2px solid #E1E3EA" }}
             >
@@ -102,15 +102,15 @@ function FinancialReportTable(props: FinancialReportTableProps) {
                   </td>
                 ))}
               </tr>
-            </tfoot>
+            </tfoot> */}
             {/* end::Table body */}
           </table>
           {/* end::Table */}
         </div>
         {/* end::Table container */}
-        <div className="d-flex justify-content-end">
+        {/* <div className="d-flex justify-content-end">
           <PaginationWidget pages={2} currentPage={0} />
-        </div>
+        </div> */}
       </div>
       {/* begin::Body */}
     </div>
