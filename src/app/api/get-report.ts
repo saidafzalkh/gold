@@ -1,14 +1,15 @@
 import { useQuery } from "react-query";
 import axiosInstance from "./axiosInstance";
 
-export const useGetReports = () => {
+export const useGetReport = (id: string) => {
   const { data, isLoading, isSuccess } = useQuery({
-    queryKey: ["reports"],
+    queryKey: ["reports", id],
     queryFn: async () => {
-      return await axiosInstance.get("/reports");
+      return await axiosInstance.get(`/reports/${id}`);
     },
     refetchOnWindowFocus: false,
+    enabled: !!id,
   });
 
-  return { reports: data?.data.data, isLoading, isSuccess };
+  return { data: data?.data.data, isLoading, isSuccess };
 };

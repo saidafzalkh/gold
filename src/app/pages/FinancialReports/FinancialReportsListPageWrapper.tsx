@@ -15,7 +15,7 @@ function FinancialReportsListPageWrapper() {
   return (
     <>
       <PageTitleWithPortal container={titleContainer}>
-        <PageTitle title="Отчёты" breadcrumbs={["Фин. Отчёты"]} />,
+        <PageTitle title="Отчёты" breadcrumbs={["Фин. Отчёты"]} />
       </PageTitleWithPortal>
 
       <Suspense>

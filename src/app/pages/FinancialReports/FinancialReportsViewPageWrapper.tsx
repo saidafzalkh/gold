@@ -1,8 +1,8 @@
 import { Suspense, lazy } from "react";
 import { useParams } from "react-router-dom";
 import {
-    PageTitle,
-    PageTitleWithPortal,
+  PageTitle,
+  PageTitleWithPortal,
 } from "../../../components/PageTitle/PageTitle";
 import useDOMElement from "../../hooks/useDOMElement";
 
@@ -17,11 +17,11 @@ function FinancialReportsViewPageWrapper() {
   return (
     <>
       <PageTitleWithPortal container={titleContainer}>
-        <PageTitle title={`Отчёт №${id}`} breadcrumbs={["Фин. Отчёты"]} />,
+        <PageTitle title={`Отчёт №${id}`} breadcrumbs={["Фин. Отчёты"]} />
       </PageTitleWithPortal>
 
       <Suspense>
-        <FinancialReportsViewPage />
+        <FinancialReportsViewPage id={id!} />
       </Suspense>
     </>
   );
