@@ -66,6 +66,10 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
                   }}
                   className="form-control form-control-solid"
                   placeholder="Pick date"
+                  onChange={(e) => {
+                    let value = moment(e[0]).format()
+                    setFilterField(column.key, value);
+                  }}
                 />
               ) : (
                 <Form.Control
@@ -86,7 +90,9 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
             </FloatingLabel>
           ))}
         <div className="d-flex flex-row justify-content-between ">
-          <Button className="btn-primary" onClick={() => setShowFilter(false)}>
+          <Button className="btn-primary" onClick={() => {
+            console.log(filterState)
+          }}>
             Применить
           </Button>
           <Button
