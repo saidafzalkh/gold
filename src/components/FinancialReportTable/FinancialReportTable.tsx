@@ -126,7 +126,6 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             pages={2}
             currentPage={props.page}
             onPaginate={(page) => {
-              console.log(page);
               props.setPage(page);
               props.refetch()
             }}
