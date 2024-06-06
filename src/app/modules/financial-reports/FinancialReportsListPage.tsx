@@ -9,7 +9,8 @@ import { useState } from "react";
 function FinancialReportsListPage() {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  const { reports, isSuccess, refetch } = useGetReports({ page });
+  // const [params, setParams] = useState({})
+  const { reports, isSuccess, refetch, pages } = useGetReports({ page });
 
   // console.log(reports);
   return (
@@ -53,17 +54,16 @@ function FinancialReportsListPage() {
         {/* begin::Col */}
 
         <div className="col-12 mb-md-5 mb-xl-10">
-          {isSuccess && (
             <FinancialReportTable
               title="Смарт ломбард"
               columns={FinancialReportTableConfig}
-              data={reports}
+              data={isSuccess ? reports : []}
               onRowClick={(id) => navigate(`/financial-reports/${id}`)}
               page={page}
+              pages={pages}
               setPage={setPage}
               refetch={refetch}
             />
-          )}
         </div>
         {/* end::Col */}
       </div>

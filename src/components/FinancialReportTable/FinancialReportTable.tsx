@@ -13,13 +13,13 @@ interface FinancialReportTableProps {
   className?: string;
   onRowClick?: (id: number | string) => void;
   page: number;
+  pages: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
   refetch: any;
 }
 
 function FinancialReportTable(props: FinancialReportTableProps) {
   const { className = "", columns, data, title = "", onRowClick } = props;
-  
 
   return (
     <div className={`card ${className} border-0 rounded-3`}>
@@ -121,13 +121,16 @@ function FinancialReportTable(props: FinancialReportTableProps) {
           {/* end::Table */}
         </div>
         {/* end::Table container */}
-        <div className="d-flex justify-content-end" style={{marginTop: '16px'}}>
+        <div
+          className="d-flex justify-content-end"
+          style={{ marginTop: "16px" }}
+        >
           <PaginationWidget
-            pages={2}
+            pages={props.pages}
             currentPage={props.page}
             onPaginate={(page) => {
               props.setPage(page);
-              props.refetch()
+              props.refetch();
             }}
           />
         </div>

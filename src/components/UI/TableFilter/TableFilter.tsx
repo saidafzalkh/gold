@@ -91,7 +91,7 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
           ))}
         <div className="d-flex flex-row justify-content-between ">
           <Button className="btn-primary" onClick={() => {
-            console.log(filterState)
+            onFilter(filterState)
           }}>
             Применить
           </Button>

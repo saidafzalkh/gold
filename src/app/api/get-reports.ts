@@ -8,7 +8,16 @@ export const useGetReports = (params?: any) => {
       return await axiosInstance.get("/reports", { params });
     },
     refetchOnWindowFocus: false,
+    onSuccess: (data) => {
+      console.log("----");
+    },
   });
 
-  return { reports: data?.data.data, isLoading, isSuccess, refetch };
+  return {
+    reports: data?.data.data,
+    isLoading,
+    isSuccess,
+    refetch,
+    pages: Math.ceil(data?.data.total / data?.data.per_page),
+  };
 };
