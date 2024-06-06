@@ -1,11 +1,10 @@
-import moment from 'moment';
-import React from 'react';
-import { Link } from 'react-router-dom';
+import moment from "moment";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import { KTIcon } from '../../_metronic/helpers';
-import { FinancialReportTableConfig } from '../../app/constants/tables';
-import { PaginationWidget } from '../UI/Pagination/Pagination';
-import TableFilter from '../UI/TableFilter/TableFilter';
+import { FinancialReportTableConfig } from "../../app/constants/tables";
+import { PaginationWidget } from "../UI/Pagination/Pagination";
+import TableFilter from "../UI/TableFilter/TableFilter";
 
 interface FinancialReportTableProps {
   title: string;
@@ -13,10 +12,15 @@ interface FinancialReportTableProps {
   data: Record<string, any>[];
   className?: string;
   onRowClick?: (id: number | string) => void;
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+  refetch: any;
 }
 
 function FinancialReportTable(props: FinancialReportTableProps) {
   const { className = "", columns, data, title = "", onRowClick } = props;
+  
+
   return (
     <div className={`card ${className} border-0 rounded-3`}>
       {/* begin::Header */}
@@ -37,8 +41,14 @@ function FinancialReportTable(props: FinancialReportTableProps) {
               placeholder="Поиск"
             />
           </div>
-          <TableFilter columns={FinancialReportTableConfig} onFilter={(filterState) => console.log(filterState)} />
-          <Link to="/financial-reports/add" className="btn btn-sm btn-warning me-3 mt-3 mt-sm-0">
+          <TableFilter
+            columns={FinancialReportTableConfig}
+            onFilter={(filterState) => console.log(filterState)}
+          />
+          <Link
+            to="/financial-reports/add"
+            className="btn btn-sm btn-warning me-3 mt-3 mt-sm-0"
+          >
             Добавить отчёт
           </Link>
         </div>
@@ -55,7 +65,11 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             <thead style={{ borderTop: "1px solid var(--bs-gray-200)" }}>
               <tr className="fw-bold text-muted">
                 {columns.map((column) => (
-                  <th className="min-w-150px fw-bolder text-dark" key={column.key} style={{ fontSize: 16 }}>
+                  <th
+                    className="min-w-150px fw-bolder text-dark"
+                    key={column.key}
+                    style={{ fontSize: 16 }}
+                  >
                     {column.label}
                   </th>
                 ))}
@@ -65,9 +79,15 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             {/* begin::Table body */}
             <tbody>
               {data.map((dataItem) => (
-                <tr onClick={() => onRowClick?.(dataItem.id)} style={{ cursor: "pointer" }}>
+                <tr
+                  onClick={() => onRowClick?.(dataItem.id)}
+                  style={{ cursor: "pointer" }}
+                >
                   {columns.map((column) => (
-                    <td className={column.className || ""} style={{ fontSize: 14, fontWeight: 600 }}>
+                    <td
+                      className={column.className || ""}
+                      style={{ fontSize: 14, fontWeight: 600 }}
+                    >
                       <span>
                         {column.key === "created_at"
                           ? moment(dataItem[column.key]).format("DD/MM/YYYY")
@@ -101,8 +121,16 @@ function FinancialReportTable(props: FinancialReportTableProps) {
           {/* end::Table */}
         </div>
         {/* end::Table container */}
-        <div className="d-flex justify-content-end">
-          <PaginationWidget pages={2} currentPage={0} />
+        <div className="d-flex justify-content-end" style={{marginTop: '16px'}}>
+          <PaginationWidget
+            pages={2}
+            currentPage={props.page}
+            onPaginate={(page) => {
+              console.log(page);
+              props.setPage(page);
+              props.refetch()
+            }}
+          />
         </div>
       </div>
       {/* begin::Body */}

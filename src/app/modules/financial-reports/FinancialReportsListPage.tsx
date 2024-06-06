@@ -1,19 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import CandleChart from "../../../components/Charts/CandleChart/CandleChart";
 import FinancialReportTable from "../../../components/FinancialReportTable/FinancialReportTable";
-import {
-  FinancialReportTableConfig,
-  FinancialReportTableData,
-} from "../../constants/tables";
-import { CandleChart1Data } from "../../constants/chart";
 import { useGetReports } from "../../api/get-reports";
+import { CandleChart1Data } from "../../constants/chart";
+import { FinancialReportTableConfig } from "../../constants/tables";
+import { useState } from "react";
 
 function FinancialReportsListPage() {
   const navigate = useNavigate();
-  const { reports, isLoading } = useGetReports();
+  const [page, setPage] = useState<number>(1);
+  const { reports, isSuccess, refetch } = useGetReports({ page });
 
-  console.log(reports);
-
+  // console.log(reports);
   return (
     <div style={{ maxWidth: 1160, margin: "0px auto" }}>
       <CandleChart
@@ -53,13 +51,17 @@ function FinancialReportsListPage() {
       {/* begin::Row */}
       <div className="row g-5 g-xl-10 mb-5 mb-xl-10">
         {/* begin::Col */}
+
         <div className="col-12 mb-md-5 mb-xl-10">
-          {!isLoading && (
+          {isSuccess && (
             <FinancialReportTable
               title="Смарт ломбард"
               columns={FinancialReportTableConfig}
               data={reports}
               onRowClick={(id) => navigate(`/financial-reports/${id}`)}
+              page={page}
+              setPage={setPage}
+              refetch={refetch}
             />
           )}
         </div>

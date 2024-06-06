@@ -23,21 +23,35 @@ function PaginationWidget({
   return (
     <ul className={baseClassName}>
       <li className="page-item previous">
-        <a onClick={() => onPaginate?.(currentPage - 1)} className="page-link">
+        <a
+          onClick={() =>
+            currentPage === 1
+              ? currentPage
+              : onPaginate?.(currentPage - 1)
+          }
+          className="page-link"
+        >
           <i className="previous"></i>
         </a>
       </li>
-      {allPages.map((page, idx) => (
+      {allPages.map((page) => (
         <li
-          className={classNames("page-item", idx === currentPage && "active")}
+          className={classNames("page-item", page === currentPage && "active")}
         >
-          <a onClick={() => onPaginate?.(idx)} className="page-link">
+          <a onClick={() => onPaginate?.(page)} className="page-link">
             {page}
           </a>
         </li>
       ))}
       <li className="page-item next">
-        <a onClick={() => onPaginate?.(currentPage + 1)} className="page-link">
+        <a
+          onClick={() =>
+            currentPage === pages
+              ? currentPage
+              : onPaginate?.(currentPage + 1)
+          }
+          className="page-link"
+        >
           <i className="next"></i>
         </a>
       </li>
