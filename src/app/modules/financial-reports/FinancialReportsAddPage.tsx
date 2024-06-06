@@ -200,6 +200,7 @@ function FinancialReportsAddPage() {
           onSave={handleSaveExpense}
           onRemove={handleRemoveExpense}
           expense={selectedExpense}
+          mode={mode}
         />
 
         <button type="submit" className="btn btn-warning me-3 mt-7">

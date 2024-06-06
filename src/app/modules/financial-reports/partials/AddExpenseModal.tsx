@@ -1,5 +1,4 @@
-import { useFormik } from "formik";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal, ModalProps } from "react-bootstrap";
 import { ExpenseTypeOptions } from "../../../constants/common";
 
@@ -10,6 +9,7 @@ interface AddExpenseModal extends ModalProps {
     description?: string;
     type?: string;
   } | null;
+  mode: "express" | "smart";
   onSave: (id: number | null, expense: AddExpenseFormType) => void;
   onRemove: (id: number) => void;
 }
@@ -18,6 +18,7 @@ export type AddExpenseFormType = {
   sum: number;
   description?: string;
   type?: string;
+  report_type: "express" | "smart";
 };
 function AddExpenseModal(props: AddExpenseModal) {
   const isEditing = !!props.expense;
@@ -28,6 +29,7 @@ function AddExpenseModal(props: AddExpenseModal) {
     sum: 0,
     description: "",
     type: "",
+    report_type: props.mode,
   });
 
   const setFormField = <T extends keyof AddExpenseFormType>(
@@ -46,12 +48,14 @@ function AddExpenseModal(props: AddExpenseModal) {
         sum: props.expense.sum,
         description: props.expense.description as any,
         type: props.expense.type as any,
+        report_type: props.mode,
       });
     } else if (!props.show) {
       setFormState({
         sum: 0,
         description: "",
         type: "",
+        report_type: props.mode,
       });
     }
   }, [props.expense, props.show]);

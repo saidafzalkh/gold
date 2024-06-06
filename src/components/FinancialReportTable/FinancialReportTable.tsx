@@ -101,9 +101,9 @@ function FinancialReportTable(props: FinancialReportTableProps) {
           {/* end::Table */}
         </div>
         {/* end::Table container */}
-        {/* <div className="d-flex justify-content-end">
+        <div className="d-flex justify-content-end">
           <PaginationWidget pages={2} currentPage={0} />
-        </div> */}
+        </div>
       </div>
       {/* begin::Body */}
     </div>
