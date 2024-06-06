@@ -1,28 +1,34 @@
-import { FC, Suspense } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
-import TopBarProgress from "react-topbar-progress-indicator";
-import { getCSSVariableValue } from "../../_metronic/assets/ts/_utils";
-import { WithChildren } from "../../_metronic/helpers";
-import { MasterLayout } from "../../_metronic/layout/MasterLayout";
-import AnalyticsPageWrapper from "../pages/Analytics/AnalyticsPageWrapper.tsx";
-import BranchAddPageWrapper from "../pages/Branch/BranchAddPageWrapper.tsx";
-import BranchListPageWrapper from "../pages/Branch/BranchListPageWrapper.tsx";
-import FinancialReportsAddPageWrapper from "../pages/FinancialReports/FinancialReportsAddPageWrapper.tsx";
-import FinancialReportsListPageWrapper from "../pages/FinancialReports/FinancialReportsListPageWrapper.tsx";
-import FinancialReportsViewPageWrapper from "../pages/FinancialReports/FinancialReportsViewPageWrapper.tsx";
-import OverdueAddPageWrapper from "../pages/Overdue/OverdueAddPageWrapper.tsx";
-import OverdueListPageWrapper from "../pages/Overdue/OverdueListPageWrapper.tsx";
-import OverdueViewPageWrapper from "../pages/Overdue/OverdueViewPageWrapper.tsx";
-import ProfilePageWrapper from "../pages/Profile/ProfilePageWrapper.tsx";
-import ProgressPage from "../pages/ProgressPage.tsx";
-import UserManagementListPageWrapper from "../pages/UserManagement/UserManagementListPageWrapper.tsx";
-import UserManagementViewPageWrapper from "../pages/UserManagement/UserManagementViewPageWrapper.tsx";
-import useToken from "../hooks/useToken.ts";
+import axios from 'axios';
+import { FC, Suspense } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import TopBarProgress from 'react-topbar-progress-indicator';
+
+import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils';
+import { WithChildren } from '../../_metronic/helpers';
+import { MasterLayout } from '../../_metronic/layout/MasterLayout';
+import axiosInstance from '../api/axiosInstance.ts';
+import useToken from '../hooks/useToken.ts';
+import AnalyticsPageWrapper from '../pages/Analytics/AnalyticsPageWrapper.tsx';
+import BranchAddPageWrapper from '../pages/Branch/BranchAddPageWrapper.tsx';
+import BranchListPageWrapper from '../pages/Branch/BranchListPageWrapper.tsx';
+import FinancialReportsAddPageWrapper from '../pages/FinancialReports/FinancialReportsAddPageWrapper.tsx';
+import FinancialReportsListPageWrapper from '../pages/FinancialReports/FinancialReportsListPageWrapper.tsx';
+import FinancialReportsViewPageWrapper from '../pages/FinancialReports/FinancialReportsViewPageWrapper.tsx';
+import OverdueAddPageWrapper from '../pages/Overdue/OverdueAddPageWrapper.tsx';
+import OverdueListPageWrapper from '../pages/Overdue/OverdueListPageWrapper.tsx';
+import OverdueViewPageWrapper from '../pages/Overdue/OverdueViewPageWrapper.tsx';
+import ProfilePageWrapper from '../pages/Profile/ProfilePageWrapper.tsx';
+import ProgressPage from '../pages/ProgressPage.tsx';
+import UserManagementListPageWrapper from '../pages/UserManagement/UserManagementListPageWrapper.tsx';
+import UserManagementViewPageWrapper from '../pages/UserManagement/UserManagementViewPageWrapper.tsx';
 
 const PrivateRoutes = () => {
   const { token } = useToken();
 
   if (!token) return <Navigate to={"/auth"} replace />;
+
+  const res = axiosInstance.get('check-auth')
+  console.log(res)
 
   return (
     <Routes>

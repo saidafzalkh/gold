@@ -180,12 +180,12 @@ export const BranchTableData = [
 
 export const FinancialReportTableConfig = [
   { key: "id", label: "№" },
-  { key: "date", label: "Дата", type: "date"},
-  { key: "own_capital", label: "Собственный капитал на руках" },
-  { key: "equity", label: "Собственный капитал на товар" },
+  { key: "created_at", label: "Дата", type: "date"},
+  { key: "sum_own_capital", label: "Собственный капитал на руках" },
+  { key: "sum_equity", label: "Собственный капитал на товар" },
   { key: "consumptions_sum_sum", label: "Расходы", className: "text-danger" },
   { key: "net_profit", label: "Чистая прибыль", className: "text-success" },
-  { key: "prodano", label: "Продано в товарах" },
+  { key: "sum_interest_income", label: "Продано в товарах" },
 ];
 
 export const FinancialReportTableData = [
