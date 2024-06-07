@@ -1,10 +1,10 @@
-import moment from "moment";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import moment from 'moment';
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import { FinancialReportTableConfig } from "../../app/constants/tables";
-import { PaginationWidget } from "../UI/Pagination/Pagination";
-import TableFilter from "../UI/TableFilter/TableFilter";
+import { FinancialReportTableConfig } from '../../app/constants/tables';
+import { PaginationWidget } from '../UI/Pagination/Pagination';
+import TableFilter from '../UI/TableFilter/TableFilter';
 
 interface FinancialReportTableProps {
   title: string;
@@ -29,7 +29,7 @@ function FinancialReportTable(props: FinancialReportTableProps) {
           <span className="card-label fw-bold fs-3 mb-1">{title}</span>
         </h3>
         <div className="card-toolbar">
-          <div className="d-flex align-items-center position-relative me-4">
+          {/* <div className="d-flex align-items-center position-relative me-4">
             <i className="ki-duotone ki-magnifier fs-3 position-absolute ms-3">
               <span className="path1"></span>
               <span className="path2"></span>
@@ -40,7 +40,7 @@ function FinancialReportTable(props: FinancialReportTableProps) {
               className="form-control form-control-white form-control-sm w-150px ps-9"
               placeholder="Поиск"
             />
-          </div>
+          </div> */}
           <TableFilter
             columns={FinancialReportTableConfig}
             onFilter={(filterState) => console.log(filterState)}
