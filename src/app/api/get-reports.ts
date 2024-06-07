@@ -1,5 +1,6 @@
-import { useQuery } from "react-query";
-import axiosInstance from "./axiosInstance";
+import { useQuery } from 'react-query';
+
+import axiosInstance from './axiosInstance';
 
 export const useGetReports = (params?: any) => {
   const { data, isLoading, isSuccess, refetch } = useQuery({
@@ -8,9 +9,6 @@ export const useGetReports = (params?: any) => {
       return await axiosInstance.get("/reports", { params });
     },
     refetchOnWindowFocus: false,
-    onSuccess: (data) => {
-      console.log("----");
-    },
   });
 
   return {

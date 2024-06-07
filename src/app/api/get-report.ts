@@ -1,5 +1,6 @@
-import { useQuery } from "react-query";
-import axiosInstance from "./axiosInstance";
+import { useQuery } from 'react-query';
+
+import axiosInstance from './axiosInstance';
 
 export const useGetReport = (id: string) => {
   const { data, isLoading, isSuccess } = useQuery({
@@ -11,5 +12,5 @@ export const useGetReport = (id: string) => {
     enabled: !!id,
   });
 
-  return { data: data?.data.data, isLoading, isSuccess };
+  return { report: data?.data.data, isLoading, isSuccess };
 };
