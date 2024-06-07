@@ -58,7 +58,9 @@ function AddExpenseModal(props: AddExpenseModal) {
         report_type: props.mode,
       });
     }
-  }, [props.expense, props.show]);
+  }, [props.expense, props.show, props.mode]);
+
+  {props.mode}
 
   return (
     <Modal

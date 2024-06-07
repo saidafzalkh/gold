@@ -12,5 +12,5 @@ export const useGetReport = (id: string) => {
     enabled: !!id,
   });
 
-  return { report: data?.data.data, isLoading, isSuccess };
+  return { data: data?.data.data, isLoading, isSuccess };
 };

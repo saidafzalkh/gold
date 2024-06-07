@@ -33,7 +33,7 @@ function FinancialReportsAddPage() {
         console.error(error);
       }
       setLoading(false);
-      form.resetForm()
+      form.resetForm();
     },
   });
 
@@ -122,7 +122,7 @@ function FinancialReportsAddPage() {
         style={{ maxWidth: 1160 }}
       >
         <div className="row row-cols-2">
-          {AddFinancialReportForm1Config.map((field) => (
+          {AddFinancialReportForm2Config.map((field) => (
             <div
               className="col"
               key={field.label}
@@ -150,7 +150,7 @@ function FinancialReportsAddPage() {
             </div>
           ))}
 
-          {AddFinancialReportForm2Config.map((field) => (
+          {AddFinancialReportForm1Config.map((field) => (
             <div
               className="col"
               key={field.label}
