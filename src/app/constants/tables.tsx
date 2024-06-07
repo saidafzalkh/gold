@@ -185,7 +185,7 @@ export const FinancialReportTableConfig = [
   { key: "sum_equity", label: "Собственный капитал на товар" },
   { key: "consumptions_sum_sum", label: "Расходы", className: "text-danger" },
   { key: "net_profit", label: "Чистая прибыль", className: "text-success" },
-  { key: "sum_interest_income", label: "Продано в товарах" },
+  { key: "sum_income_goods", label: "Продано в товарах" },
 ];
 
 export const FinancialReportTableData = [

@@ -10,8 +10,8 @@ import { FinancialReportTableConfig } from '../../constants/tables';
 function FinancialReportsListPage() {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
-  // const [params, setParams] = useState({})
-  const { reports, isSuccess, refetch, pages } = useGetReports({ page });
+  const [params, setParams] = useState({});
+  const { reports, isSuccess, refetch, pages } = useGetReports({ page, ...params });
 
   // return <pre>{JSON.stringify(reports, null, 2)}</pre>;
   return (
@@ -64,6 +64,7 @@ function FinancialReportsListPage() {
               page={page}
               pages={pages}
               setPage={setPage}
+              setParams={setParams}
               refetch={refetch}
             />
           )}

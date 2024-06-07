@@ -1,9 +1,9 @@
-import moment from "moment";
-import React, { useState } from "react";
-import { FloatingLabel, Button } from "react-bootstrap";
-import Dropdown from "react-bootstrap/Dropdown";
-import Form from "react-bootstrap/Form";
-import Flatpickr from "react-flatpickr";
+import moment from 'moment';
+import React, { useState } from 'react';
+import { Button, FloatingLabel } from 'react-bootstrap';
+import Dropdown from 'react-bootstrap/Dropdown';
+import Form from 'react-bootstrap/Form';
+import Flatpickr from 'react-flatpickr';
 
 // The forwardRef is important!!
 // Dropdown needs access to the DOM node in order to position the Menu
@@ -20,7 +20,7 @@ const CustomToggle = React.forwardRef(({ children, onClick }: any, ref) => (
   </a>
 ));
 
-type FilterState = Record<string, { equal: null | string }>;
+type FilterState = Record<string, null | string>;
 
 interface TableFilterProps {
   columns: { key: string; label: string; type?: string; className?: string }[];
@@ -30,23 +30,16 @@ interface TableFilterProps {
 export default function TableFilter({ columns, onFilter }: TableFilterProps) {
   const [showFilter, setShowFilter] = useState(false);
   const initialFilterState = {} as FilterState;
-  columns.forEach(
-    (column) => (initialFilterState[column.key] = { equal: null })
-  );
-  const [filterState, setFilterState] =
-    useState<FilterState>(initialFilterState);
+  columns.forEach((column) => (initialFilterState[column.key] = null));
+  const [filterState, setFilterState] = useState<FilterState>(initialFilterState);
 
   const setFilterField = (field: string, value: any) => {
-    setFilterState((state) => ({ ...state, [field]: { equal: value } }));
+    setFilterState((state) => ({ ...state, [field]: value }));
   };
 
   return (
     <Dropdown show={showFilter}>
-      <Dropdown.Toggle
-        as={CustomToggle}
-        id="dropdown-custom-components"
-        onClick={() => setShowFilter(true)}
-      >
+      <Dropdown.Toggle as={CustomToggle} id="dropdown-custom-components" onClick={() => setShowFilter(true)}>
         Фильтр
       </Dropdown.Toggle>
 
@@ -54,11 +47,7 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
         {columns
           .filter((col) => col.key !== "id" && col.key !== "action")
           .map((column) => (
-            <FloatingLabel
-              controlId="floatingInput"
-              label={column.label}
-              className="mb-3"
-            >
+            <FloatingLabel controlId="floatingInput" label={column.label} className="mb-3">
               {column.type === "date" ? (
                 <Flatpickr
                   options={{
@@ -67,7 +56,7 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
                   className="form-control form-control-solid"
                   placeholder="Pick date"
                   onChange={(e) => {
-                    let value = moment(e[0]).format()
+                    let value = moment(e[0]).format();
                     setFilterField(column.key, value);
                   }}
                 />
@@ -77,7 +66,7 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
                   type={column.type ?? "text"}
                   placeholder={column.type === "date" ? "dd/mm/yyyy" : ""}
                   size="sm"
-                  value={filterState[column.key]?.equal as string}
+                  value={filterState[column.key] as string}
                   onChange={(e) => {
                     let value = e.target.value;
                     if (column.type === "date") {
@@ -90,15 +79,15 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
             </FloatingLabel>
           ))}
         <div className="d-flex flex-row justify-content-between ">
-          <Button className="btn-primary" onClick={() => {
-            onFilter(filterState)
-          }}>
+          <Button
+            className="btn-primary"
+            onClick={() => {
+              onFilter(filterState);
+            }}
+          >
             Применить
           </Button>
-          <Button
-            className="btn-secondary"
-            onClick={() => setShowFilter(false)}
-          >
+          <Button className="btn-secondary" onClick={() => setShowFilter(false)}>
             Отменить
           </Button>
         </div>

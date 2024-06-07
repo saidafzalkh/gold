@@ -15,6 +15,7 @@ interface FinancialReportTableProps {
   page: number;
   pages: number;
   setPage: React.Dispatch<React.SetStateAction<number>>;
+  setParams: React.Dispatch<React.SetStateAction<any>>;
   refetch: any;
 }
 
@@ -43,12 +44,13 @@ function FinancialReportTable(props: FinancialReportTableProps) {
           </div> */}
           <TableFilter
             columns={FinancialReportTableConfig}
-            onFilter={(filterState) => console.log(filterState)}
+            onFilter={(filterState) => {
+              console.log(filterState);
+              props.setParams(filterState);
+              props.refetch();
+            }}
           />
-          <Link
-            to="/financial-reports/add"
-            className="btn btn-sm btn-warning me-3 mt-3 mt-sm-0"
-          >
+          <Link to="/financial-reports/add" className="btn btn-sm btn-warning me-3 mt-3 mt-sm-0">
             Добавить отчёт
           </Link>
         </div>
@@ -65,11 +67,7 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             <thead style={{ borderTop: "1px solid var(--bs-gray-200)" }}>
               <tr className="fw-bold text-muted">
                 {columns.map((column) => (
-                  <th
-                    className="min-w-150px fw-bolder text-dark"
-                    key={column.key}
-                    style={{ fontSize: 16 }}
-                  >
+                  <th className="min-w-150px fw-bolder text-dark" key={column.key} style={{ fontSize: 16 }}>
                     {column.label}
                   </th>
                 ))}
@@ -79,15 +77,9 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             {/* begin::Table body */}
             <tbody>
               {data.map((dataItem) => (
-                <tr
-                  onClick={() => onRowClick?.(dataItem.id)}
-                  style={{ cursor: "pointer" }}
-                >
+                <tr onClick={() => onRowClick?.(dataItem.id)} style={{ cursor: "pointer" }}>
                   {columns.map((column) => (
-                    <td
-                      className={column.className || ""}
-                      style={{ fontSize: 14, fontWeight: 600 }}
-                    >
+                    <td className={column.className || ""} style={{ fontSize: 14, fontWeight: 600 }}>
                       <span>
                         {column.key === "created_at"
                           ? moment(dataItem[column.key]).format("DD/MM/YYYY")
@@ -121,10 +113,7 @@ function FinancialReportTable(props: FinancialReportTableProps) {
           {/* end::Table */}
         </div>
         {/* end::Table container */}
-        <div
-          className="d-flex justify-content-end"
-          style={{ marginTop: "16px" }}
-        >
+        <div className="d-flex justify-content-end" style={{ marginTop: "16px" }}>
           <PaginationWidget
             pages={props.pages}
             currentPage={props.page}
