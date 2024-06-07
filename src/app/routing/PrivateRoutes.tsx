@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { FC, Suspense } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 import TopBarProgress from 'react-topbar-progress-indicator';
@@ -6,7 +5,7 @@ import TopBarProgress from 'react-topbar-progress-indicator';
 import { getCSSVariableValue } from '../../_metronic/assets/ts/_utils';
 import { WithChildren } from '../../_metronic/helpers';
 import { MasterLayout } from '../../_metronic/layout/MasterLayout';
-import axiosInstance from '../api/axiosInstance.ts';
+import { useVerifyToken } from '../api/verify-token.ts';
 import useToken from '../hooks/useToken.ts';
 import AnalyticsPageWrapper from '../pages/Analytics/AnalyticsPageWrapper.tsx';
 import BranchAddPageWrapper from '../pages/Branch/BranchAddPageWrapper.tsx';
@@ -24,11 +23,11 @@ import UserManagementViewPageWrapper from '../pages/UserManagement/UserManagemen
 
 const PrivateRoutes = () => {
   const { token } = useToken();
+  const { res, isSuccess } = useVerifyToken();
 
   if (!token) return <Navigate to={"/auth"} replace />;
 
-  const res = axiosInstance.get('check-auth')
-  console.log(res)
+  if (isSuccess && !res.success) return <Navigate to={"/auth"} replace />;
 
   return (
     <Routes>
@@ -37,31 +36,16 @@ const PrivateRoutes = () => {
         <Route path="auth/*" element={<Navigate to="/dashboard" />} />
         {/* Pages */}
         <Route path="analytics" element={<AnalyticsPageWrapper />} />
-        <Route
-          path="financial-reports"
-          element={<FinancialReportsListPageWrapper />}
-        />
-        <Route
-          path="financial-reports/add"
-          element={<FinancialReportsAddPageWrapper />}
-        />
-        <Route
-          path="financial-reports/:id"
-          element={<FinancialReportsViewPageWrapper />}
-        />
+        <Route path="financial-reports" element={<FinancialReportsListPageWrapper />} />
+        <Route path="financial-reports/add" element={<FinancialReportsAddPageWrapper />} />
+        <Route path="financial-reports/:id" element={<FinancialReportsViewPageWrapper />} />
         <Route path="overdue-list" element={<OverdueListPageWrapper />} />
         <Route path="overdue-list/add" element={<OverdueAddPageWrapper />} />
         <Route path="overdue-list/:id" element={<OverdueViewPageWrapper />} />
 
         <Route path="profile" element={<ProfilePageWrapper />} />
-        <Route
-          path="user-management"
-          element={<UserManagementListPageWrapper />}
-        />
-        <Route
-          path="user-management/:id"
-          element={<UserManagementViewPageWrapper />}
-        />
+        <Route path="user-management" element={<UserManagementListPageWrapper />} />
+        <Route path="user-management/:id" element={<UserManagementViewPageWrapper />} />
 
         <Route path="branches" element={<BranchListPageWrapper />} />
         <Route path="branches/add" element={<BranchAddPageWrapper />} />
