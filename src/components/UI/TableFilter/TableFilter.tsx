@@ -56,7 +56,7 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
                   className="form-control form-control-solid"
                   placeholder="Pick date"
                   onChange={(e) => {
-                    let value = moment(e[0]).format();
+                    let value = moment(e[0]).format('YYYY-MM-DD');
                     setFilterField(column.key, value);
                   }}
                 />
@@ -82,12 +82,20 @@ export default function TableFilter({ columns, onFilter }: TableFilterProps) {
           <Button
             className="btn-primary"
             onClick={() => {
+              setShowFilter(false);
               onFilter(filterState);
             }}
           >
             Применить
           </Button>
-          <Button className="btn-secondary" onClick={() => setShowFilter(false)}>
+          <Button
+            className="btn-secondary"
+            onClick={() => {
+              setFilterState(() => initialFilterState);
+              setShowFilter(false);
+              onFilter({});
+            }}
+          >
             Отменить
           </Button>
         </div>

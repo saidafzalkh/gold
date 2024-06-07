@@ -17,6 +17,7 @@ interface FinancialReportTableProps {
   setPage: React.Dispatch<React.SetStateAction<number>>;
   setParams: React.Dispatch<React.SetStateAction<any>>;
   refetch: any;
+  loading: boolean;
 }
 
 function FinancialReportTable(props: FinancialReportTableProps) {
@@ -76,19 +77,25 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             {/* end::Table head */}
             {/* begin::Table body */}
             <tbody>
-              {data.map((dataItem) => (
-                <tr onClick={() => onRowClick?.(dataItem.id)} style={{ cursor: "pointer" }}>
-                  {columns.map((column) => (
-                    <td className={column.className || ""} style={{ fontSize: 14, fontWeight: 600 }}>
-                      <span>
-                        {column.key === "created_at"
-                          ? moment(dataItem[column.key]).format("DD/MM/YYYY")
-                          : dataItem[column.key] || "-"}
-                      </span>
-                    </td>
-                  ))}
-                </tr>
-              ))}
+              {!props.loading ? (
+                data.map((dataItem) => (
+                  <tr onClick={() => onRowClick?.(dataItem.id)} style={{ cursor: "pointer" }}>
+                    {columns.map((column) => (
+                      <td className={column.className || ""} style={{ fontSize: 14, fontWeight: 600 }}>
+                        <span>
+                          {column.key === "created_at"
+                            ? moment(dataItem[column.key]).format("DD/MM/YYYY")
+                            : dataItem[column.key] || "-"}
+                        </span>
+                      </td>
+                    ))}
+                  </tr>
+                ))
+              ) : (
+                <div style={{ display: "flex", justifyContent: "center", padding: "5px 0", width: "100%" }}>
+                  <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
+                </div>
+              )}
             </tbody>
             {/* <tfoot
               className="table-default"
@@ -114,14 +121,16 @@ function FinancialReportTable(props: FinancialReportTableProps) {
         </div>
         {/* end::Table container */}
         <div className="d-flex justify-content-end" style={{ marginTop: "16px" }}>
-          <PaginationWidget
-            pages={props.pages}
-            currentPage={props.page}
-            onPaginate={(page) => {
-              props.setPage(page);
-              props.refetch();
-            }}
-          />
+          {!props.loading && (
+            <PaginationWidget
+              pages={props.pages}
+              currentPage={props.page}
+              onPaginate={(page) => {
+                props.setPage(page);
+                props.refetch();
+              }}
+            />
+          )}
         </div>
       </div>
       {/* begin::Body */}

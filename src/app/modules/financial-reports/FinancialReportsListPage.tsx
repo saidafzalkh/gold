@@ -11,7 +11,7 @@ function FinancialReportsListPage() {
   const navigate = useNavigate();
   const [page, setPage] = useState<number>(1);
   const [params, setParams] = useState({});
-  const { reports, isSuccess, refetch, pages } = useGetReports({ page, ...params });
+  const { reports, isLoading, refetch, pages } = useGetReports({ page, ...params });
 
   // return <pre>{JSON.stringify(reports, null, 2)}</pre>;
   return (
@@ -55,19 +55,18 @@ function FinancialReportsListPage() {
         {/* begin::Col */}
 
         <div className="col-12 mb-md-5 mb-xl-10">
-          {isSuccess && (
-            <FinancialReportTable
-              title="Смарт ломбард"
-              columns={FinancialReportTableConfig}
-              data={reports}
-              onRowClick={(id) => navigate(`/financial-reports/${id}`)}
-              page={page}
-              pages={pages}
-              setPage={setPage}
-              setParams={setParams}
-              refetch={refetch}
-            />
-          )}
+          <FinancialReportTable
+            title="Смарт ломбард"
+            columns={FinancialReportTableConfig}
+            data={reports}
+            onRowClick={(id) => navigate(`/financial-reports/${id}`)}
+            page={page}
+            pages={pages}
+            setPage={setPage}
+            setParams={setParams}
+            refetch={refetch}
+            loading={isLoading}
+          />
         </div>
         {/* end::Col */}
       </div>
