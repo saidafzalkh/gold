@@ -37,7 +37,7 @@ function FinancialReportsAddPage() {
       }
       setLoading(false);
       form.resetForm();
-      toast("Отчет отправлен");
+      toast.success("Отчет отправлен");
     },
   });
 
