@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
-import toast from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import ExpensesTable from "../../../components/ExpensesTable/ExpensesTable";
 import Accordion from "../../../components/UI/Accordion";
 import axiosInstance from "../../api/axiosInstance";
@@ -378,6 +378,8 @@ function FinancialReportsAddPage() {
           />
         </div>
       </form>
+
+      <Toaster />
     </div>
   );
 }

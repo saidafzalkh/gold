@@ -1,5 +1,4 @@
 import { Suspense, lazy } from "react";
-import { Toaster } from "react-hot-toast";
 import {
   PageTitle,
   PageTitleWithPortal,
@@ -22,8 +21,6 @@ function FinancialReportsAddPageWrapper() {
       <Suspense>
         <FinancialReportsAddPage />
       </Suspense>
-
-      <Toaster />
     </>
   );
 }
