@@ -1,4 +1,3 @@
-import * as Yup from "yup";
 import { AddExpenseFormType } from "../modules/financial-reports/partials/AddExpenseModal";
 
 export const AddFinancialReportForm1Config = [
@@ -60,7 +59,7 @@ export const AddFinancialReportForm1Config = [
     label: "Залоговые билеты/товары",
     name: "deposit_tickets",
     required: true,
-    type: "text",
+    type: "number",
   },
   {
     label: "Залоговые билеты/готов к продаже",
@@ -72,7 +71,7 @@ export const AddFinancialReportForm1Config = [
     label: "Заёмный капитал инвесторов",
     name: "investor_capital",
     required: true,
-    type: "text",
+    type: "number",
   },
   {
     label: "Заёмный капитал кредит",
@@ -85,12 +84,20 @@ export const AddFinancialReportForm1Config = [
     name: "equity",
     required: true,
     type: "number",
+    disabled: true
   },
   {
     label: "Собственный капитал в товарах",
     name: "own_capital",
     required: true,
     type: "number",
+  },
+  {
+    label: "Конец смены",
+    name: "end_shift",
+    required: true,
+    type: "number",
+    disabled: true
   },
 ];
 
@@ -153,7 +160,7 @@ export const AddFinancialReportForm2Config = [
     label: "Залоговые билеты/товары",
     name: "smart_deposit_tickets",
     required: true,
-    type: "text",
+    type: "number",
   },
   {
     label: "Залоговые билеты/готов к продаже",
@@ -165,7 +172,7 @@ export const AddFinancialReportForm2Config = [
     label: "Заёмный капитал инвесторов",
     name: "smart_investor_capital",
     required: true,
-    type: "text",
+    type: "number",
   },
   {
     label: "Заёмный капитал кредит",
@@ -182,6 +189,19 @@ export const AddFinancialReportForm2Config = [
   {
     label: "Собственный капитал в товарах",
     name: "smart_own_capital",
+    required: true,
+    type: "number",
+  },
+  {
+    label: "Скупка",
+    name: "smart_buying_up",
+    required: true,
+    type: "number",
+    disabled: true
+  },
+  {
+    label: "Конец смены",
+    name: "smart_end_shift",
     required: true,
     type: "number",
   },
@@ -207,9 +227,11 @@ export const initialFormState = {
   pledge_tickets: "",
   investor_capital: "",
   borrowed_capital: "",
+  used_goods: "",
   equity: "",
   own_capital: "",
   express_consumptions: [] as AddExpenseFormType[],
+  end_shift: "",
   smart_start_shift: "",
   smart_fixed_flow: "",
   smart_refreshment: "",
@@ -227,7 +249,10 @@ export const initialFormState = {
   smart_pledge_tickets: "",
   smart_investor_capital: "",
   smart_borrowed_capital: "",
+  smart_used_goods: "",
   smart_equity: "",
   smart_own_capital: "",
   smart_consumptions: [] as AddExpenseFormType[],
+  smart_end_shift: "",
+  smart_buying_up: 0
 };

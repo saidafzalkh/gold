@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { useFormik } from "formik";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ExpensesTable from "../../../components/ExpensesTable/ExpensesTable";
 import Accordion from "../../../components/UI/Accordion";
 import axiosInstance from "../../api/axiosInstance";
@@ -36,6 +36,126 @@ function FinancialReportsAddPage() {
       form.resetForm();
     },
   });
+
+  const {
+    deposit_tickets,
+    smart_deposit_tickets,
+    end_shift,
+    smart_end_shift,
+    investor_capital,
+    smart_investor_capital,
+    used_goods,
+    smart_used_goods,
+    start_shift,
+    smart_start_shift,
+    refreshment,
+    smart_refreshment,
+    ransom,
+    smart_ransom,
+    renewal,
+    smart_renewal,
+    selling_goods,
+    smart_selling_goods,
+    collection,
+    smart_collection,
+    deposit,
+    smart_deposit,
+    smart_buying_up,
+    return_goods,
+    smart_return_goods,
+    express_consumptions,
+    smart_consumptions,
+  } = form.values;
+
+  useEffect(() => {
+    const express_consumptions_sum = express_consumptions.reduce(
+      (accumulator, currentValue) => +accumulator + +currentValue,
+      0
+    );
+
+    const smart_consumptions_sum = smart_consumptions.reduce(
+      (accumulator, currentValue) => +accumulator + +currentValue,
+      0
+    );
+
+    form.setFieldValue(
+      "equity",
+      +deposit_tickets + +end_shift - +investor_capital
+    );
+
+    form.setFieldValue(
+      "smart_equity",
+      +smart_deposit_tickets + +smart_end_shift - +smart_investor_capital
+    );
+
+    form.setFieldValue(
+      "own_capital",
+      +deposit_tickets + +used_goods + +end_shift - +investor_capital
+    );
+
+    form.setFieldValue(
+      "smart_own_capital",
+      +smart_deposit_tickets +
+        +smart_used_goods +
+        +smart_end_shift -
+        +smart_investor_capital
+    );
+
+    form.setFieldValue(
+      "end_shift",
+      +start_shift +
+        +refreshment +
+        +ransom +
+        +renewal +
+        +selling_goods -
+        +collection -
+        +deposit -
+        +return_goods -
+        +express_consumptions_sum
+    );
+
+    form.setFieldValue(
+      "smart_end_shift",
+      +smart_start_shift +
+        +smart_refreshment +
+        +smart_ransom +
+        +smart_renewal +
+        +smart_selling_goods -
+        +smart_collection -
+        +smart_buying_up -
+        +smart_deposit -
+        +smart_return_goods -
+        +smart_consumptions_sum
+    );
+  }, [
+    deposit_tickets,
+    end_shift,
+    investor_capital,
+    smart_deposit_tickets,
+    smart_end_shift,
+    smart_investor_capital,
+
+    used_goods,
+    smart_used_goods,
+
+    start_shift,
+    refreshment,
+    ransom,
+    renewal,
+    selling_goods,
+    collection,
+    deposit,
+    return_goods,
+    smart_start_shift,
+    smart_refreshment,
+    smart_ransom,
+    smart_renewal,
+    smart_selling_goods,
+    smart_collection,
+    smart_buying_up,
+    smart_deposit,
+    smart_return_goods,
+  ]);
 
   const openExpenseModal = (expense?: AddExpenseFormType & { id: number }) => {
     setIsExpenseModalOpen(true);
@@ -146,6 +266,7 @@ function FinancialReportsAddPage() {
                 value={(form.values as any)[field.name]}
                 className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 placeholder=""
+                disabled={field.disabled}
               />
             </div>
           ))}
@@ -174,6 +295,7 @@ function FinancialReportsAddPage() {
                 value={(form.values as any)[field.name]}
                 className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 placeholder=""
+                disabled={field.disabled}
               />
             </div>
           ))}
