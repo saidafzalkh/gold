@@ -1,5 +1,5 @@
 import { AddExpenseFormType } from "../modules/financial-reports/partials/AddExpenseModal";
-
+import data from '../../data/fixed.json'
 export const AddFinancialReportForm1Config = [
   {
     label: "Начало смены",
@@ -227,7 +227,7 @@ export const AddFinancialReportForm2Config = [
 
 export const initialFormState = {
   start_shift: "",
-  fixed_flow: "",
+  fixed_flow: data.fixed_flow,
   refreshment: "",
   collection: "",
   deposit: "",
@@ -249,7 +249,7 @@ export const initialFormState = {
   express_consumptions: [] as AddExpenseFormType[],
   end_shift: "",
   smart_start_shift: "",
-  smart_fixed_flow: "",
+  smart_fixed_flow: data.smart_fixed_flow,
   smart_refreshment: "",
   smart_collection: "",
   smart_deposit: "",
