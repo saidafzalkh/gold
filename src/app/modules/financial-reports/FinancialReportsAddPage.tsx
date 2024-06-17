@@ -1,9 +1,11 @@
 import classNames from "classnames";
 import { useFormik } from "formik";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import ExpensesTable from "../../../components/ExpensesTable/ExpensesTable";
 import Accordion from "../../../components/UI/Accordion";
 import axiosInstance from "../../api/axiosInstance";
+import { useGetLastShift } from "../../api/get-last-shift";
 import {
   AddFinancialReportForm1Config,
   AddFinancialReportForm2Config,
@@ -22,6 +24,7 @@ function FinancialReportsAddPage() {
     (AddExpenseFormType & { id: number }) | null
   >(null);
   const [isExpenseModalOpen, setIsExpenseModalOpen] = useState<boolean>(false);
+  const { shift, isSuccess } = useGetLastShift();
 
   const form = useFormik({
     initialValues: initialFormState,
@@ -34,8 +37,14 @@ function FinancialReportsAddPage() {
       }
       setLoading(false);
       form.resetForm();
+      toast("Отчет отправлен");
     },
   });
+
+  useEffect(() => {
+    form.setFieldValue("start_shift", shift?.end_shift || 0);
+    form.setFieldValue("smart_start_shift", shift?.smart_end_shift || 0);
+  }, [isSuccess]);
 
   const {
     deposit_tickets,
@@ -65,16 +74,17 @@ function FinancialReportsAddPage() {
     smart_return_goods,
     express_consumptions,
     smart_consumptions,
+    partial_redemption,
+    smart_partial_redemption,
   } = form.values;
 
   useEffect(() => {
     const express_consumptions_sum = express_consumptions.reduce(
-      (accumulator, currentValue) => +accumulator + +currentValue,
+      (accumulator, currentValue) => accumulator + +currentValue.sum,
       0
     );
-
     const smart_consumptions_sum = smart_consumptions.reduce(
-      (accumulator, currentValue) => +accumulator + +currentValue,
+      (accumulator, currentValue) => accumulator + +currentValue.sum,
       0
     );
 
@@ -106,6 +116,7 @@ function FinancialReportsAddPage() {
       +start_shift +
         +refreshment +
         +ransom +
+        +partial_redemption +
         +renewal +
         +selling_goods -
         +collection -
@@ -119,6 +130,7 @@ function FinancialReportsAddPage() {
       +smart_start_shift +
         +smart_refreshment +
         +smart_ransom +
+        +smart_partial_redemption +
         +smart_renewal +
         +smart_selling_goods -
         +smart_collection -
@@ -155,6 +167,9 @@ function FinancialReportsAddPage() {
     smart_buying_up,
     smart_deposit,
     smart_return_goods,
+
+    express_consumptions,
+    smart_consumptions,
   ]);
 
   const openExpenseModal = (expense?: AddExpenseFormType & { id: number }) => {

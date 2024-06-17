@@ -1,7 +1,8 @@
 import { Suspense, lazy } from "react";
+import { Toaster } from "react-hot-toast";
 import {
-    PageTitle,
-    PageTitleWithPortal,
+  PageTitle,
+  PageTitleWithPortal,
 } from "../../../components/PageTitle/PageTitle";
 import useDOMElement from "../../hooks/useDOMElement";
 
@@ -21,6 +22,8 @@ function FinancialReportsAddPageWrapper() {
       <Suspense>
         <FinancialReportsAddPage />
       </Suspense>
+
+      <Toaster />
     </>
   );
 }

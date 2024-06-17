@@ -84,20 +84,21 @@ export const AddFinancialReportForm1Config = [
     name: "equity",
     required: true,
     type: "number",
-    disabled: true
+    disabled: true,
   },
   {
     label: "Собственный капитал в товарах",
     name: "own_capital",
     required: true,
     type: "number",
+    disabled: true,
   },
   {
     label: "Конец смены",
     name: "end_shift",
     required: true,
     type: "number",
-    disabled: true
+    disabled: true,
   },
 ];
 
@@ -114,8 +115,18 @@ export const AddFinancialReportForm2Config = [
     required: true,
     type: "text",
   },
-  { label: "Подкрепление", name: "smart_refreshment", required: true, type: "text" },
-  { label: "Инкасация", name: "smart_collection", required: true, type: "text" },
+  {
+    label: "Подкрепление",
+    name: "smart_refreshment",
+    required: true,
+    type: "text",
+  },
+  {
+    label: "Инкасация",
+    name: "smart_collection",
+    required: true,
+    type: "text",
+  },
   { label: "Залог", name: "smart_deposit", required: true, type: "text" },
   { label: "Выкуп", name: "smart_ransom", required: true, type: "text" },
   { label: "Продление", name: "smart_renewal", required: true, type: "text" },
@@ -155,7 +166,12 @@ export const AddFinancialReportForm2Config = [
     required: true,
     type: "text",
   },
-  { label: "Товары бу", name: "smart_used_goods", required: true, type: "text" },
+  {
+    label: "Товары бу",
+    name: "smart_used_goods",
+    required: true,
+    type: "text",
+  },
   {
     label: "Залоговые билеты/товары",
     name: "smart_deposit_tickets",
@@ -185,29 +201,29 @@ export const AddFinancialReportForm2Config = [
     name: "smart_equity",
     required: true,
     type: "number",
+    disabled: true
   },
   {
     label: "Собственный капитал в товарах",
     name: "smart_own_capital",
     required: true,
     type: "number",
+    disabled: true
   },
   {
     label: "Скупка",
     name: "smart_buying_up",
     required: true,
     type: "number",
-    disabled: true
   },
   {
     label: "Конец смены",
     name: "smart_end_shift",
     required: true,
     type: "number",
+    disabled: true
   },
 ];
-
-const emptyErrorMessage = "hello";
 
 export const initialFormState = {
   start_shift: "",
@@ -254,5 +270,5 @@ export const initialFormState = {
   smart_own_capital: "",
   smart_consumptions: [] as AddExpenseFormType[],
   smart_end_shift: "",
-  smart_buying_up: 0
+  smart_buying_up: 0,
 };
