@@ -16,80 +16,56 @@ export const OverdueTableData = [
   {
     id: 1,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-success fs-base">
-        Переданные юристу
-      </span>
-    ),
+    status: <span className="badge badge-light-success fs-base">Переданные юристу</span>,
     amount: <span className="text-success">3800 тг</span>,
     returned: <span className="text-success">3800 тг</span>,
   },
   {
     id: 2,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-success fs-base">
-        Переданные юристу
-      </span>
-    ),
+    status: <span className="badge badge-light-success fs-base">Переданные юристу</span>,
     amount: <span className="text-danger">2600 тг</span>,
     returned: <span className="text-danger">2600 тг</span>,
   },
   {
     id: 3,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-danger fs-base">Приостановленные</span>
-    ),
+    status: <span className="badge badge-light-danger fs-base">Приостановленные</span>,
     amount: <span className="text-danger">2600 тг</span>,
     returned: <span className="text-danger">2600 тг</span>,
   },
   {
     id: 4,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-warning fs-base">Без документов</span>
-    ),
+    status: <span className="badge badge-light-warning fs-base">Без документов</span>,
     amount: <span className="text-success">2600 тг</span>,
     returned: <span className="text-success">2600 тг</span>,
   },
   {
     id: 5,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-warning fs-base">Без документов</span>
-    ),
+    status: <span className="badge badge-light-warning fs-base">Без документов</span>,
     amount: <span className="text-danger">2600 тг</span>,
     returned: <span className="text-success">2600 тг</span>,
   },
   {
     id: 6,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-warning fs-base">Без документов</span>
-    ),
+    status: <span className="badge badge-light-warning fs-base">Без документов</span>,
     amount: <span className="text-success">3900 тг</span>,
     returned: <span className="text-success">4000 тг</span>,
   },
   {
     id: 7,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-success fs-base">
-        Переданные юристу
-      </span>
-    ),
+    status: <span className="badge badge-light-success fs-base">Переданные юристу</span>,
     amount: <span className="text-success">3800 тг</span>,
     returned: <span className="text-success">3800 тг</span>,
   },
   {
     id: 8,
     fullname: "Нургалиев Данияр",
-    status: (
-      <span className="badge badge-light-success fs-base">
-        Переданные юристу
-      </span>
-    ),
+    status: <span className="badge badge-light-success fs-base">Переданные юристу</span>,
     amount: <span className="text-danger">2600 тг</span>,
     returned: <span className="text-danger">2600 тг</span>,
   },
@@ -180,123 +156,17 @@ export const BranchTableData = [
 
 export const FinancialReportTableConfig = [
   { key: "id", label: "№" },
-  { key: "created_at", label: "Дата", type: "date"},
+  { key: "created_at", label: "Дата", type: "date" },
+  { key: "sum_own_capital", label: "Начало смены" },
   { key: "sum_own_capital", label: "Собственный капитал на руках" },
   { key: "sum_equity", label: "Собственный капитал на товар" },
   { key: "consumptions_sum_sum", label: "Расходы", className: "text-danger" },
   { key: "net_profit", label: "Чистая прибыль", className: "text-success" },
-  { key: "sum_income_goods", label: "Продано в товарах" },
-];
-
-export const FinancialReportTableData = [
-  {
-    id: 1,
-    date: "27.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 2,
-    date: "28.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 3,
-    date: "29.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 4,
-    date: "30.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 5,
-    date: "30.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 6,
-    date: "30.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 7,
-    date: "30.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 8,
-    date: "30.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
-  {
-    id: 9,
-    date: "30.04.2024",
-    equity_capital_on_hand: "3000 тг",
-    equity_capital_in_goods: "3000 тг",
-    expenses: "3000 тг",
-    net_profit: "3000 тг",
-    sold_in_goods: "3000 тг",
-  },
+  { key: "sum_income_goods", label: "Залоговые билеты в товарах" },
 ];
 
 export const ExpensesTableConfig = [
   { label: "Сумма", key: "sum", className: "text-muted" },
   { label: "Описание", key: "description", className: "text-muted" },
   { label: "Тип", key: "type", className: "text-muted" },
-];
-
-export const ExpensesTableData = [
-  {
-    sum: " 1000 тг",
-    description: "Chrome - Windows",
-    type: "Зарплата",
-  },
-  {
-    sum: " 2000 тг",
-    description: "Chrome - Windows",
-    type: "Аренда помещения",
-  },
-  {
-    sum: " 3000 тг",
-    description: "Chrome - Windows",
-    type: "Кредит",
-  },
-  {
-    sum: " 4000 тг",
-    description: "Chrome - Windows",
-    type: "Инвесторы",
-  },
 ];
