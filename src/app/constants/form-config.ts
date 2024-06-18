@@ -1,5 +1,6 @@
-import { AddExpenseFormType } from "../modules/financial-reports/partials/AddExpenseModal";
-import data from '../../data/fixed.json'
+import data from '../../../public/data/fixed.json';
+import { AddExpenseFormType } from '../modules/financial-reports/partials/AddExpenseModal';
+
 export const AddFinancialReportForm1Config = [
   {
     label: "Начало смены",
@@ -201,14 +202,14 @@ export const AddFinancialReportForm2Config = [
     name: "smart_equity",
     required: true,
     type: "number",
-    disabled: true
+    disabled: true,
   },
   {
     label: "Собственный капитал в товарах",
     name: "smart_own_capital",
     required: true,
     type: "number",
-    disabled: true
+    disabled: true,
   },
   {
     label: "Скупка",
@@ -221,7 +222,7 @@ export const AddFinancialReportForm2Config = [
     name: "smart_end_shift",
     required: true,
     type: "number",
-    disabled: true
+    disabled: true,
   },
 ];
 

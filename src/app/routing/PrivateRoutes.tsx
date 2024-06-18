@@ -27,8 +27,6 @@ const PrivateRoutes = () => {
 
   if (!token) return <Navigate to={"/auth"} replace />;
 
-  if (isSuccess && !res.success) return <Navigate to={"/auth"} replace />;
-
   return (
     <Routes>
       <Route element={<MasterLayout />}>
