@@ -222,7 +222,7 @@ export const AddFinancialReportForm2Config = [
     name: "smart_end_shift",
     required: true,
     type: "number",
-    // disabled: true,
+    disabled: true,
   },
 ];
 
