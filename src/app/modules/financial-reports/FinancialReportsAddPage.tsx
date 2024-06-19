@@ -221,12 +221,12 @@ function FinancialReportsAddPage() {
       <ul
         className="nav nav-tabs nav-line-tabs nav-line-tabs-2x mb-5 fs-4"
         style={{ width: "fit-content" }}
-      >
+        >
         <li
           className="nav-item"
           onClick={() => setMode("express")}
           style={{ cursor: "pointer" }}
-        >
+          >
           <a
             className={classNames(
               "nav-link text-dark fw-semibold",
@@ -251,6 +251,8 @@ function FinancialReportsAddPage() {
           </a>
         </li>
       </ul>
+      {JSON.stringify(shift)}
+
       <form
         onSubmit={form.handleSubmit}
         className="form container mx-auto"
