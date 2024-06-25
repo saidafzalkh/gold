@@ -309,7 +309,7 @@ function FinancialReportsAddPage() {
                 type={field.type}
                 required={field.required}
                 onChange={form.handleChange}
-                value={(form.values as any)[field.name]}
+                value={(form.values as any)[field.name].toString()}
                 className="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
                 placeholder=""
                 disabled={field.disabled}

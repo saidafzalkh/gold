@@ -1,10 +1,10 @@
-import moment from 'moment';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import moment from "moment";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
-import { FinancialReportTableConfig } from '../../app/constants/tables';
-import { PaginationWidget } from '../UI/Pagination/Pagination';
-import TableFilter from '../UI/TableFilter/TableFilter';
+import { FinancialReportTableConfig } from "../../app/constants/tables";
+import { PaginationWidget } from "../UI/Pagination/Pagination";
+import TableFilter from "../UI/TableFilter/TableFilter";
 
 interface FinancialReportTableProps {
   title: string;
@@ -51,7 +51,10 @@ function FinancialReportTable(props: FinancialReportTableProps) {
               props.refetch();
             }}
           />
-          <Link to="/financial-reports/add" className="btn btn-sm btn-warning me-3 mt-3 mt-sm-0">
+          <Link
+            to="/financial-reports/add"
+            className="btn btn-sm btn-warning me-3 mt-3 mt-sm-0"
+          >
             Добавить отчёт
           </Link>
         </div>
@@ -68,20 +71,28 @@ function FinancialReportTable(props: FinancialReportTableProps) {
             <thead style={{ borderTop: "1px solid var(--bs-gray-200)" }}>
               <tr className="fw-bold text-muted">
                 {columns.map((column) => (
-                  <th className="min-w-150px fw-bolder text-dark" key={column.key} style={{ fontSize: 16 }}>
+                  <th
+                    className={`${column.key !== 'id' && 'min-w-150px'} fw-bolder text-dark`}
+                    key={column.key}
+                    style={{ fontSize: 16 }}
+                  >
                     {column.label}
                   </th>
                 ))}
               </tr>
             </thead>
-            {/* end::Table head */}
-            {/* begin::Table body */}
             <tbody>
               {!props.loading ? (
                 data.map((dataItem) => (
-                  <tr onClick={() => onRowClick?.(dataItem.id)} style={{ cursor: "pointer" }}>
+                  <tr
+                    onClick={() => onRowClick?.(dataItem.id)}
+                    style={{ cursor: "pointer" }}
+                  >
                     {columns.map((column) => (
-                      <td className={column.className || ""} style={{ fontSize: 14, fontWeight: 600 }}>
+                      <td
+                        className={column.className || ""}
+                        style={{ fontSize: 14, fontWeight: 600 }}
+                      >
                         <span>
                           {column.key === "created_at"
                             ? moment(dataItem[column.key]).format("DD/MM/YYYY")
@@ -92,12 +103,19 @@ function FinancialReportTable(props: FinancialReportTableProps) {
                   </tr>
                 ))
               ) : (
-                <div style={{ display: "flex", justifyContent: "center", padding: "5px 0", width: "100%" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    padding: "5px 0",
+                    width: "100%",
+                  }}
+                >
                   <span className="spinner-border spinner-border-sm align-middle ms-2"></span>
                 </div>
               )}
             </tbody>
-            {/* <tfoot
+            <tfoot
               className="table-default"
               style={{ borderTop: "2px solid #E1E3EA" }}
             >
@@ -105,22 +123,40 @@ function FinancialReportTable(props: FinancialReportTableProps) {
                 <td style={{ fontSize: 14 }} className="fw-bolder">
                   <span>Итого</span>
                 </td>
-                {columns.slice(1).map((column) => (
-                  <td
-                    className={column.className || ""}
-                    style={{ fontSize: 14, fontWeight: 600 }}
-                  >
-                    <span>10000 тг</span>
-                  </td>
-                ))}
+                {columns.slice(1).map((column) => {
+                  // Calculate the sum of values for the current column key
+                  const sum =
+                    data &&
+                    data.reduce(
+                      (accumulator, currentObject) =>
+                        accumulator + (currentObject[column.key] || 0),
+                      0
+                    );
+
+                  return (
+                    <td
+                      className={column.className || ""}
+                      style={{ fontSize: 14, fontWeight: 600 }}
+                    >
+                      {/* <span>
+                        {column.key === "consumptions_sum_sum" ||
+                        column.key === "net_profit"
+                          ? sum
+                          : ""}
+                      </span> */}
+
+                      <span>{column.key !== "created_at" ? sum : ""}</span>
+                    </td>
+                  );
+                })}
               </tr>
-            </tfoot> */}
-            {/* end::Table body */}
+            </tfoot>
           </table>
-          {/* end::Table */}
         </div>
-        {/* end::Table container */}
-        <div className="d-flex justify-content-end" style={{ marginTop: "16px" }}>
+        <div
+          className="d-flex justify-content-end"
+          style={{ marginTop: "16px" }}
+        >
           {!props.loading && (
             <PaginationWidget
               pages={props.pages}

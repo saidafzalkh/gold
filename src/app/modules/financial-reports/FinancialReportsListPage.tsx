@@ -56,7 +56,7 @@ function FinancialReportsListPage() {
 
         <div className="col-12 mb-md-5 mb-xl-10">
           <FinancialReportTable
-            title="Смарт ломбард"
+            title=""
             columns={FinancialReportTableConfig}
             data={reports}
             onRowClick={(id) => navigate(`/financial-reports/${id}`)}
