@@ -21,7 +21,7 @@ const SidebarFooter = () => {
         onClick={handleLogout}
       >
         <img src={toAbsoluteUrl("media/svg/sidebar/exit-right.svg")} />
-      </button>
+      </button> 
     </div>
   );
 };
