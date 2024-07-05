@@ -160,7 +160,7 @@ export const FinancialReportTableConfig = [
   { key: "sum_start_shift", label: "Начало смены" },
   { key: "sum_end_shift", label: "Конец смены" },
   { key: "sum_equity", label: "Собственный капитал на руках" },
-  { key: "sum_own_capital ", label: "Собственный капитал на товар" },
+  { key: "sum_own_capital", label: "Собственный капитал на товар" },
   { key: "consumptions_sum_sum", label: "Расходы", className: "text-danger" },
   { key: "net_profit", label: "Чистая прибыль", className: "text-success" },
   { key: "sum_deposit_tickets", label: "Залоговые билеты в товарах" },
